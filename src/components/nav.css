@@ -1,0 +1,11 @@
+#nav-container {
+  display: flex;
+  margin: 30px;
+  .item {
+    margin: 10px;
+  }
+}
+
+.nav-logo {
+  width: 100px;
+}
