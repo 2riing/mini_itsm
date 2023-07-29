@@ -10,7 +10,7 @@ function boardView() {
     getArticlesAPI().then((res) => {
       setArticles(res.data);
       // setTotalPages(res.data.totalPages);
-      console.log(res.data);
+      console.log("articles data :", res.data);
     });
   };
 
@@ -28,7 +28,7 @@ function boardView() {
       <div id="board-list">
         <div className="container">
           <div className="board-create">
-            <Link className="nav_item" to="/edit" state={{ cate: "create" }}>
+            <Link className="nav_item" to="/new" state={{ cate: "create" }}>
               <button>글쓰기</button>
             </Link>
           </div>

@@ -1,24 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { getArticleAPI } from "../../lib/api/article";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { getArticleAPI, deleteArticleAPI } from "../../lib/api/article";
 
 function boardDetail() {
   const params = useParams();
+  const navigate = useNavigate();
   const productId = params.id;
 
   const [article, setArticle] = useState({});
 
   const getArticle = () => {
     const productId = params.id;
-    console.log(productId);
+    console.log("article detail id :", productId);
     getArticleAPI(params.id).then((res) => {
       setArticle(res.data);
     });
   };
 
+  const deleteArticle = () => {
+    const productId = params.id;
+    if (window.confirm("정말 삭제합니까?")) {
+      deleteArticleAPI(params.id).then((res) => {
+        console.log("delete data", res);
+        navigate("/board");
+      });
+      alert("삭제되었습니다.");
+    } else {
+      alert("취소합니다.");
+    }
+  };
+
   useEffect(() => {
     getArticle();
   }, []);
+
   return (
     <div>
       <section className="notice">
@@ -30,9 +45,14 @@ function boardDetail() {
         <div id="board-list">
           <div className="container">
             <div className="board-create">
-              <Link className="nav_item" to="/edit" state={{ cate: "update" }}>
+              <Link
+                className="nav_item"
+                to={`/edit/${params.id}`}
+                state={{ cate: "update" }}
+              >
                 <button>글수정</button>
               </Link>
+              <button onClick={deleteArticle}>글삭제</button>
             </div>
             <table className="board-table">
               <thead>
