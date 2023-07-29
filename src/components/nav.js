@@ -7,21 +7,20 @@ function Nav() {
   return (
     <div>
       <div id="nav-container">
-        <div class="item">
-          <img class="nav-logo" src="logo.png" />
+        <div className="item">
+          <img className="nav-logo" src="logo.png" />
         </div>
-
-        <div class="item">
-          <Link to="/home">🏠</Link>
+        <div className="item">
+          <Link to="/">🏠</Link>
         </div>
-        <div class="item">
-          <Link to="/board">DataFilter</Link>
+        <div className="item">
+          <Link to="/filter">DataFilter</Link>
         </div>
-        <div class="item">
-          <Link to="/">Board</Link>
+        <div className="item">
+          <Link to="/board">Board</Link>
         </div>
-        <div class="item">
-          <Link to="/">ETC</Link>
+        <div className="item">
+          <Link to="/etc">ETC</Link>
         </div>
       </div>
     </div>

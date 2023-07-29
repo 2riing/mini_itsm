@@ -3,25 +3,25 @@ import "./boardView.css";
 
 function boardView() {
   return (
-    <section class="notice">
-      <div class="page-title">
-        <div class="container">
+    <section className="notice">
+      <div className="page-title">
+        <div className="container">
           <h3>공지사항</h3>
         </div>
       </div>
 
       <div id="board-list">
-        <div class="container">
-          <table class="board-table">
+        <div className="container">
+          <table className="board-table">
             <thead>
               <tr>
-                <th scope="col" class="th-num">
+                <th scope="col" className="th-num">
                   번호
                 </th>
-                <th scope="col" class="th-title">
+                <th scope="col" className="th-title">
                   제목
                 </th>
-                <th scope="col" class="th-date">
+                <th scope="col" className="th-date">
                   등록일
                 </th>
               </tr>

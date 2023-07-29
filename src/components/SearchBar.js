@@ -6,11 +6,11 @@ function SearchBar() {
     <div>
       <div id="search-container">
         <div>
-          <img class="logo" src="logo.png" />
-          <div class="bar">
-            <input class="searchbar" type="text" title="Search" />
+          <img className="logo" src="logo.png" />
+          <div className="bar">
+            <input className="searchbar" type="text" title="Search" />
             <a href="#">
-              <img class="voice" src="search.png" />
+              <img className="voice" src="search.png" />
             </a>
           </div>
         </div>
