@@ -1,12 +1,27 @@
-import React from "react";
+import { useRef, useEffect, useState } from "react";
 import "./boardView.css";
+import { getArticlesAPI } from "../../lib/api/article";
 
 function boardView() {
+  const [articles, setArticles] = useState([]);
+
+  const getArticles = () => {
+    getArticlesAPI().then((res) => {
+      setArticles(res.data);
+      // setTotalPages(res.data.totalPages);
+      console.log(res.data);
+    });
+  };
+
+  useEffect(() => {
+    getArticles();
+  }, []);
+
   return (
     <section className="notice">
       <div className="page-title">
         <div className="container">
-          <h3>공지사항</h3>
+          <h3>Sample Data</h3>
         </div>
       </div>
 
@@ -27,30 +42,15 @@ function boardView() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>3</td>
-                <th>
-                  <a href="#!">[공지사항] 개인정보 처리방침 변경안내처리방침</a>
-                  <p>테스트</p>
-                </th>
-                <td>2017.07.13</td>
-              </tr>
-
-              <tr>
-                <td>2</td>
-                <th>
-                  <a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a>
-                </th>
-                <td>2017.06.15</td>
-              </tr>
-
-              <tr>
-                <td>1</td>
-                <th>
-                  <a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a>
-                </th>
-                <td>2017.06.15</td>
-              </tr>
+              {articles.map((article) => (
+                <tr>
+                  <td>{article.id}</td>
+                  <th>
+                    <a href="#!">{article.title}</a>
+                  </th>
+                  <td>2017.06.15</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

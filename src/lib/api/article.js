@@ -5,13 +5,13 @@ import axios from "axios";
 const constantUrl = "posts";
 
 const api = axios.create({
-  baseURL: process.env.PUBLIC_API_KEY,
+  baseURL: process.env.REACT_APP_PUBLIC_API_KEY,
   //   headers: {
   //     Authorization: `Bearer ${cookies.get("accessToken")}`,
   //   },
 });
 
-export async function getArticles() {
+export async function getArticlesAPI() {
   try {
     const res = await api.get(`${constantUrl}`);
     return res;

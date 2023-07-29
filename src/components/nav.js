@@ -4,25 +4,38 @@ import { Link } from "react-router-dom";
 import Home from "../pages/home.js";
 
 function Nav() {
+  // const burgerMenu = document.querySelector(".burger-menu");
+  // const navLinks = document.querySelector(".nav-links");
+
+  // burgerMenu.addEventListener("click", () => {
+  //   navLinks.classList.toggle("active");
+  // });
+
   return (
-    <div>
-      <div id="nav-container">
-        <div className="item">
+    <div className="navbar">
+      <div className="none">
+        <Link to="/" className="nav_item">
           <img className="nav-logo" src="logo.png" />
-        </div>
-        <div className="item">
-          <Link to="/">🏠</Link>
-        </div>
-        <div className="item">
-          <Link to="/filter">DataFilter</Link>
-        </div>
-        <div className="item">
-          <Link to="/board">Board</Link>
-        </div>
-        <div className="item">
-          <Link to="/etc">ETC</Link>
-        </div>
+        </Link>
       </div>
+      <ul className="nav-links">
+        <li>
+          <Link to="/filter" className="nav_item">
+            DataFilter
+          </Link>
+        </li>
+        <li>
+          <Link to="/board" className="nav_item">
+            Board
+          </Link>
+        </li>
+        <li>
+          <Link to="/etc" className="nav_item">
+            ETC
+          </Link>
+        </li>
+      </ul>
+      {/* <div class="burger-menu">&#9776;</div> */}
     </div>
   );
 }

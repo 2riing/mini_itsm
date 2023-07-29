@@ -1,11 +1,41 @@
-#nav-container {
-  display: flex;
-  margin: 30px;
-  .item {
-    margin: 10px;
-  }
-}
-
 .nav-logo {
   width: 100px;
+  padding-left: 10px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  padding-right: 100px;
+  background-color: transparent;
+}
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+.nav-links li {
+  margin-left: 20px;
+}
+.nav_item {
+  text-decoration: none;
+  color: #333;
+}
+.burger-menu {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+  .nav-links {
+    /* display: none; */
+    /* flex-direction: column; */
+  }
+  /* .nav-links li {
+    margin: 10px 0;
+  } */
+  /* .burger-menu {
+    display: block;
+  } */
 }

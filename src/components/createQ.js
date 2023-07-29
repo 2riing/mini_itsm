@@ -8,11 +8,7 @@ function createQ() {
         <div id="create-btn-con">
           <label>
             <input type="checkbox" />
-            템플릿 적용
-          </label>
-          <label>
-            <input type="checkbox" />
-            조치 완료
+            Template
           </label>
         </div>
         <div id="c-form">
