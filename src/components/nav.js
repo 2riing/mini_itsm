@@ -34,6 +34,11 @@ function Nav() {
             ETC
           </Link>
         </li>
+        <li>
+          <Link to="/login" className="nav_item">
+            Login
+          </Link>
+        </li>
       </ul>
       {/* <div class="burger-menu">&#9776;</div> */}
     </div>

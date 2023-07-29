@@ -54,8 +54,13 @@ function createQ(props) {
             Template
           </label>
         </div>
-        <div id="c-form">
-          <textarea id="create-input" />
+        <div id="create-form">
+          <div>
+            <input type="text" />
+          </div>
+          <div>
+            <textarea id="create-input" />
+          </div>
         </div>
         <div>
           <button id="create-button" onClick={onBtnClick}>
