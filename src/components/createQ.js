@@ -1,5 +1,6 @@
 import React from "react";
 import "./createQ.css";
+import { getArticlesAPI } from "../lib/api/article.js";
 
 function createQ() {
   return (
@@ -15,7 +16,7 @@ function createQ() {
           <textarea id="create-input" />
         </div>
         <div>
-          <button id="create-button">제출</button>
+          <button id="create-button">완료</button>
         </div>
       </div>
     </div>

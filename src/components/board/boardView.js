@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./boardView.css";
 import { getArticlesAPI } from "../../lib/api/article";
 
@@ -24,9 +25,13 @@ function boardView() {
           <h3>Sample Data</h3>
         </div>
       </div>
-
       <div id="board-list">
         <div className="container">
+          <div className="board-create">
+            <Link className="nav_item" to="/edit" state={{ cate: "create" }}>
+              <button>글쓰기</button>
+            </Link>
+          </div>
           <table className="board-table">
             <thead>
               <tr>
@@ -43,10 +48,12 @@ function boardView() {
             </thead>
             <tbody>
               {articles.map((article) => (
-                <tr>
+                <tr key={article.id}>
                   <td>{article.id}</td>
                   <th>
-                    <a href="#!">{article.title}</a>
+                    <Link to={`/board/detail/${article.id}`}>
+                      {article.title}
+                    </Link>
                   </th>
                   <td>2017.06.15</td>
                 </tr>

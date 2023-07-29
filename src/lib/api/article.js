@@ -21,9 +21,9 @@ export async function getArticlesAPI() {
   }
 }
 
-export async function getArticle(data) {
+export async function getArticleAPI(data) {
   try {
-    const res = await api.get(`${constantUrl}/data`);
+    const res = await api.get(`${constantUrl}/${data}`);
     return res;
   } catch (err) {
     console.log(err);
@@ -31,7 +31,7 @@ export async function getArticle(data) {
   }
 }
 
-export async function postArticle(data) {
+export async function postArticleAPI(data) {
   try {
     const res = await api.post(`${constantUrl}`);
     return res;
@@ -41,9 +41,9 @@ export async function postArticle(data) {
   }
 }
 
-export async function putArticle(data) {
+export async function putArticleAPI(data) {
   try {
-    const res = await api.put(`${constantUrl}/data`);
+    const res = await api.put(`${constantUrl}/${data}`);
     return res;
   } catch (err) {
     console.log(err);
@@ -51,9 +51,9 @@ export async function putArticle(data) {
   }
 }
 
-export async function deleteArticle(data) {
+export async function deleteArticleAPI(data) {
   try {
-    const res = await api.delete(`${constantUrl}/data`);
+    const res = await api.delete(`${constantUrl}/${data}`);
     return res;
   } catch (err) {
     console.log(err);
