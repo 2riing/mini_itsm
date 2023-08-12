@@ -51,9 +51,7 @@ function boardView() {
                 <tr key={article.id}>
                   <td>{article.id}</td>
                   <th>
-                    <Link to={`/board/detail/${article.id}`}>
-                      {article.title}
-                    </Link>
+                    <Link to={`/board/${article.id}`}>{article.title}</Link>
                   </th>
                   <td>2017.06.15</td>
                 </tr>

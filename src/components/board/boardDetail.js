@@ -64,7 +64,7 @@ function boardDetail() {
               </thead>
               <tbody>
                 <tr>
-                  <td>{article.body}</td>
+                  <td>{article.content}</td>
                 </tr>
               </tbody>
             </table>

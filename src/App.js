@@ -23,7 +23,7 @@ function App() {
         <Route path="/etc" element={<ETC />} />
         <Route path="/edit/:id" element={<Edit />} />
         <Route path="/new" element={<NewArticle />} />
-        <Route path="/board/detail/:id" element={<BoardDetail />} />
+        <Route path="/board/:id" element={<BoardDetail />} />
       </Routes>
     </div>
   );

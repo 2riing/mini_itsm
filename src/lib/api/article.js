@@ -2,7 +2,7 @@ import axios from "axios";
 // import { Cookies } from "react-cookie";
 
 // const cookies = new Cookies();
-const constantUrl = "posts";
+const constantUrl = "board";
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_PUBLIC_API_KEY,

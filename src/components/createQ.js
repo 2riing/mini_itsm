@@ -15,7 +15,7 @@ function createQ(props) {
         console.log("update article data :", res);
       });
       alert("글이 수정되었습니다.");
-      navigate(`/board/detail/${productId}`);
+      navigate(`/board/${productId}`);
     } else {
       alert("취소합니다.");
     }
@@ -26,7 +26,7 @@ function createQ(props) {
       postArticleAPI().then((res) => {
         console.log("create article data : ", res);
         alert("글이작성되었습니다 목업에서는 표시 안되는게 정상임");
-        navigate(`/board/detail/${res.data.id}`);
+        navigate(`/board/${res.data.id}`);
       });
     } else {
       alert("취소합니다.");
