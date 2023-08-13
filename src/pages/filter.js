@@ -1,6 +1,6 @@
 import React from "react";
-import FilterResult from "../components/filter/filterResult.js";
-import FilterSelect from "../components/filter/filterSelect.js";
+import FilterResult from "../components/filter/FilterResult.js";
+import FilterSelect from "../components/filter/FilterSelect.js";
 
 function filter() {
   return (

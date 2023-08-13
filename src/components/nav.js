@@ -1,5 +1,5 @@
 import React from "react";
-import "./nav.css";
+import "./Nav.css";
 import { Link } from "react-router-dom";
 import Home from "../pages/home.js";
 
@@ -29,11 +29,11 @@ function Nav() {
             Board
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link to="/etc" className="nav_item">
             ETC
           </Link>
-        </li>
+        </li> */}
         <li>
           <Link to="/login" className="nav_item">
             Login

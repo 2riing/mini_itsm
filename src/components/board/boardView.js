@@ -3,16 +3,24 @@ import { Link } from "react-router-dom";
 import "./boardView.css";
 import { getArticlesAPI } from "../../lib/api/article";
 
-function boardView() {
+function BoardView() {
   const [articles, setArticles] = useState([]);
+  const [created, setCreated] = useState("");
 
   const getArticles = () => {
     getArticlesAPI().then((res) => {
       setArticles(res.data);
-      // setTotalPages(res.data.totalPages);
       console.log("articles data :", res.data);
     });
   };
+
+  function convertTimestampToDateTime(timestamp) {
+    const seconds = timestamp.seconds;
+    const nanos = timestamp.nanos;
+
+    const milliseconds = seconds * 1000 + nanos / 1000000;
+    return new Date(milliseconds);
+  }
 
   useEffect(() => {
     getArticles();
@@ -53,7 +61,11 @@ function boardView() {
                   <th>
                     <Link to={`/board/${article.id}`}>{article.title}</Link>
                   </th>
-                  <td>2017.06.15</td>
+                  <td>
+                    {convertTimestampToDateTime(
+                      article.created_at
+                    ).toLocaleString()}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -64,4 +76,4 @@ function boardView() {
   );
 }
 
-export default boardView;
+export default BoardView;

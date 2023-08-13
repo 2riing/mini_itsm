@@ -1,7 +1,7 @@
 import React from "react";
 import SearchBar from "../components/SearchBar";
-import CreateQ from "../components/createQ";
-import BoardView from "../components/board/boardView";
+import CreateQ from "../components/CreateQ";
+import BoardView from "../components/board/BoardView";
 
 function board() {
   return (

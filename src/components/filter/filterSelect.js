@@ -1,6 +1,6 @@
 import React from "react";
 
-function filterSelect() {
+function FilterSelect() {
   return (
     <div>
       <div>filter Select</div>
@@ -8,4 +8,4 @@ function filterSelect() {
   );
 }
 
-export default filterSelect;
+export default FilterSelect;

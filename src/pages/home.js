@@ -1,6 +1,6 @@
 import React from "react";
 import SearchBar from "../components/SearchBar";
-import CreateQ from "../components/createQ";
+import CreateQ from "../components/CreateQ";
 
 function home() {
   return (

@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { getArticleAPI, deleteArticleAPI } from "../../lib/api/article";
+import "./BoardDetail.css";
+import {
+  getArticleAPI,
+  deleteArticleAPI,
+  getCommentsAPI,
+  postCommentAPI,
+} from "../../lib/api/article";
 
-function boardDetail() {
+function BoardDetail() {
   const params = useParams();
   const navigate = useNavigate();
-  const productId = params.id;
 
   const [article, setArticle] = useState({});
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
 
   const getArticle = () => {
     const productId = params.id;
@@ -17,10 +24,18 @@ function boardDetail() {
     });
   };
 
+  const getComments = () => {
+    const productId = params.id;
+    getCommentsAPI(productId).then((res) => {
+      setComments(res.data);
+      console.log("comments data by article :", res.data);
+    });
+  };
+
   const deleteArticle = () => {
     const productId = params.id;
     if (window.confirm("정말 삭제합니까?")) {
-      deleteArticleAPI(params.id).then((res) => {
+      deleteArticleAPI(productId).then((res) => {
         console.log("delete data", res);
         navigate("/board");
       });
@@ -30,8 +45,35 @@ function boardDetail() {
     }
   };
 
+  const handleCommentChange = (event) => {
+    setNewComment(event.target.value);
+  };
+
+  const createComment = () => {
+    if (newComment.trim() === "") {
+      alert("댓글 내용을 입력해주세요.");
+      return;
+    }
+
+    const commentData = {
+      content: newComment,
+      articleId: 123, // 기존 게시글 ID를 입력하세요.
+    };
+
+    postCommentAPI(commentData)
+      .then((res) => {
+        console.log("댓글 작성 결과:", res);
+        // 댓글 생성 성공 시에는 필요한 처리를 진행하세요.
+      })
+      .catch((error) => {
+        console.error("댓글 작성 오류:", error);
+        // 댓글 생성 실패 시에는 필요한 처리를 진행하세요.
+      });
+  };
+
   useEffect(() => {
     getArticle();
+    getComments();
   }, []);
 
   return (
@@ -68,6 +110,23 @@ function boardDetail() {
                 </tr>
               </tbody>
             </table>
+            <div className="comment-section">
+              {comments?.map((comment, index) => (
+                <div key={index} className="comment">
+                  <div className="user-name">작성자 : {comment.user_id}</div>
+                  <div className="content">{comment.content}</div>
+                </div>
+              ))}
+            </div>
+            <div className="comment-create">
+              <div className="user-name">UserName</div>
+              <textarea
+                value={newComment}
+                onChange={handleCommentChange}
+                placeholder="댓글을 입력하세요."
+              />
+              <button onClick={createComment}>작성하기</button>
+            </div>
           </div>
         </div>
       </section>
@@ -75,4 +134,4 @@ function boardDetail() {
   );
 }
 
-export default boardDetail;
+export default BoardDetail;

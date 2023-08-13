@@ -11,12 +11,13 @@ const api = axios.create({
   //   },
 });
 
+// Article
+
 export async function getArticlesAPI() {
   try {
     const res = await api.get(`${constantUrl}`);
     return res;
   } catch (err) {
-    console.log(err);
     return err;
   }
 }
@@ -26,17 +27,16 @@ export async function getArticleAPI(data) {
     const res = await api.get(`${constantUrl}/${data}`);
     return res;
   } catch (err) {
-    console.log(err);
     return err;
   }
 }
 
 export async function postArticleAPI(data) {
   try {
-    const res = await api.post(`${constantUrl}`);
+    console.log("post res", data);
+    const res = await api.post(`${constantUrl}`, data);
     return res;
   } catch (err) {
-    console.log(err);
     return err;
   }
 }
@@ -54,6 +54,58 @@ export async function putArticleAPI(data) {
 export async function deleteArticleAPI(data) {
   try {
     const res = await api.delete(`${constantUrl}/${data}`);
+    return res;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
+
+// Comment
+
+export async function getCommentsAPI(postId) {
+  try {
+    const res = await api.get(`${constantUrl}/${postId}/cmt`);
+    return res;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
+
+export async function getCommentAPI(postId, cmtId) {
+  try {
+    const res = await api.get(`${constantUrl}/${postId}/cmt/${cmtId}`);
+    return res;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
+
+export async function postCommentAPI(postId) {
+  try {
+    const res = await api.post(`${constantUrl}/${postId}/cmt`);
+    return res;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
+
+export async function putCommentAPI(postId, cmtId) {
+  try {
+    const res = await api.put(`${constantUrl}/${postId}/cmt/${cmtId}`);
+    return res;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
+
+export async function deleteCommentAPI(postId, cmtId) {
+  try {
+    const res = await api.delete(`${constantUrl}/${postId}/cmt/${cmtId}`);
     return res;
   } catch (err) {
     console.log(err);

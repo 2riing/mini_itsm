@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import CreateQ from "../createQ.js";
+import CreateQ from "../CreateQ.js";
 // import { useLocation } from "react-router-dom";
 
 function edit() {
