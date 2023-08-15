@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "./boardView.css";
+import "./BoardDetail";
 import { getArticlesAPI } from "../../lib/api/article";
 
 function BoardView() {

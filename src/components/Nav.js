@@ -1,7 +1,7 @@
 import React from "react";
 import "./Nav.css";
 import { Link } from "react-router-dom";
-import Home from "../pages/home.js";
+import Home from "../pages/Home.js";
 
 function Nav() {
   // const burgerMenu = document.querySelector(".burger-menu");
