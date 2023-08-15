@@ -1,7 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import Nav from "./components/Nav";
+import Nav from "./components/Nav.js";
 import Home from "./pages/home.js";
 import Filter from "./pages/filter.js";
 import Login from "./pages/login.js";
