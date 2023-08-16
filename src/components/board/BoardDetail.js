@@ -57,17 +57,17 @@ function BoardDetail() {
 
     const commentData = {
       content: newComment,
-      articleId: 123, // 기존 게시글 ID를 입력하세요.
+      postId: params.id, 
     };
 
     postCommentAPI(commentData)
       .then((res) => {
         console.log("댓글 작성 결과:", res);
-        // 댓글 생성 성공 시에는 필요한 처리를 진행하세요.
+        setNewComment("");
+        getComments();
       })
       .catch((error) => {
         console.error("댓글 작성 오류:", error);
-        // 댓글 생성 실패 시에는 필요한 처리를 진행하세요.
       });
   };
 
@@ -75,6 +75,7 @@ function BoardDetail() {
     getArticle();
     getComments();
   }, []);
+
 
   return (
     <div>
@@ -113,8 +114,13 @@ function BoardDetail() {
             <div className="comment-section">
               {comments?.map((comment, index) => (
                 <div key={index} className="comment">
-                  <div className="user-name">작성자 : {comment.user_id}</div>
-                  <div className="content">{comment.content}</div>
+                  <div>                  
+                    <div className="user-name">작성자 : {comment.user_id}</div>
+                    <div className="content">{comment.content}</div>
+                  </div>
+                  <div><button>x</button></div>
+
+                
                 </div>
               ))}
             </div>

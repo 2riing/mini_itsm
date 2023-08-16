@@ -83,9 +83,10 @@ export async function getCommentAPI(postId, cmtId) {
   }
 }
 
-export async function postCommentAPI(postId) {
+export async function postCommentAPI(data) {
   try {
-    const res = await api.post(`${constantUrl}/${postId}/cmt`);
+    const req = {content : data.content}
+    const res = await api.post(`${constantUrl}/${data.postId}/cmt`, req);
     return res;
   } catch (err) {
     console.log(err);
@@ -93,9 +94,9 @@ export async function postCommentAPI(postId) {
   }
 }
 
-export async function putCommentAPI(postId, cmtId) {
+export async function putCommentAPI(postId, cmtId, data) {
   try {
-    const res = await api.put(`${constantUrl}/${postId}/cmt/${cmtId}`);
+    const res = await api.put(`${constantUrl}/${postId}/cmt/${cmtId}`, data);
     return res;
   } catch (err) {
     console.log(err);
