@@ -1,9 +1,7 @@
 import React from "react";
-import SearchBar from "../components/SearchBar";
-import CreateQ from "../components/CreateQ";
 import BoardView from "../components/board/BoardView";
 
-function board() {
+function Board() {
   return (
     <div>
       <BoardView />
@@ -11,4 +9,4 @@ function board() {
   );
 }
 
-export default board;
+export default Board;

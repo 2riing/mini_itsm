@@ -2,7 +2,7 @@ import React from "react";
 import SearchBar from "../components/SearchBar";
 import CreateQ from "../components/CreateQ";
 
-function home() {
+function Home() {
   return (
     <div>
       <br />
@@ -14,4 +14,4 @@ function home() {
   );
 }
 
-export default home;
+export default Home;
