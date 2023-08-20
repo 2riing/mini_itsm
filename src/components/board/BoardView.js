@@ -1,12 +1,21 @@
 import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "./BoardDetail";
+import "./BoardView.css";
 import { getArticlesAPI } from "../../lib/api/article";
 
 function BoardView() {
-  const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useState([
+    {
+      id: "1",
+      title:
+        "[썸레터] 박명수가 부른 SUPER SHY? 요즘 화제 'AI 노래 커버' 알아보기",
+      created_at: {
+        seconds: 1691928345,
+        nanos: 698000000,
+      },
+    },
+  ]);
   const [created, setCreated] = useState("");
-
   const getArticles = () => {
     getArticlesAPI().then((res) => {
       setArticles(res.data);
@@ -19,7 +28,13 @@ function BoardView() {
     const nanos = timestamp.nanos;
 
     const milliseconds = seconds * 1000 + nanos / 1000000;
-    return new Date(milliseconds);
+    const date = new Date(milliseconds);
+
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+
+    return `${year}. ${month}. ${day}`;
   }
 
   useEffect(() => {
@@ -40,36 +55,38 @@ function BoardView() {
               <button>글쓰기</button>
             </Link>
           </div>
-          <table className="board-table">
-            <thead>
-              <tr>
-                <th scope="col" className="th-num">
-                  번호
-                </th>
-                <th scope="col" className="th-title">
-                  제목
-                </th>
-                <th scope="col" className="th-date">
-                  등록일
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {articles.map((article) => (
-                <tr key={article.id}>
-                  <td>{article.id}</td>
-                  <th>
-                    <Link to={`/board/${article.id}`}>{article.title}</Link>
-                  </th>
-                  <td>
-                    {convertTimestampToDateTime(
-                      article.created_at
-                    ).toLocaleString()}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div id="board-table">
+            {articles ? (
+              <>
+                {articles.map((article) => (
+                  <Link
+                    className="link-styled"
+                    to={`/board/${article.id}`}
+                    key={article.id}
+                  >
+                    <div className="item">
+                      <span className="date">
+                        {article.created_at ? (
+                          <>
+                            {"["}
+                            {convertTimestampToDateTime(
+                              article.created_at
+                            ).toLocaleString()}
+                            {"] "}
+                          </>
+                        ) : (
+                          <></>
+                        )}
+                      </span>
+                      <span className="title">{article.title}</span>
+                    </div>
+                  </Link>
+                ))}
+              </>
+            ) : (
+              <div>결과 값이 없습니다</div>
+            )}
+          </div>
         </div>
       </div>
     </section>
