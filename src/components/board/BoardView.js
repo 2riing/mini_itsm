@@ -15,7 +15,7 @@ function BoardView() {
       },
     },
   ]);
-  const [created, setCreated] = useState("");
+
   const getArticles = () => {
     getArticlesAPI().then((res) => {
       setArticles(res.data);
@@ -37,25 +37,21 @@ function BoardView() {
     return `${year}. ${month}. ${day}`;
   }
 
-  useEffect(() => {
-    getArticles();
-  }, []);
+  // useEffect(() => {
+  //   getArticles();
+  // }, []);
 
   return (
     <section className="notice">
-      <div className="page-title">
-        <div className="container">
-          <h3>Sample Data</h3>
-        </div>
-      </div>
       <div id="board-list">
-        <div className="container">
+        <div className="board-container">
           <div className="board-create">
             <Link className="nav_item" to="/new" state={{ cate: "create" }}>
               <button>글쓰기</button>
             </Link>
           </div>
           <div id="board-table">
+            <div className="board-header">자주 묻는 질문</div>
             {articles ? (
               <>
                 {articles.map((article) => (
@@ -72,7 +68,7 @@ function BoardView() {
                             {convertTimestampToDateTime(
                               article.created_at
                             ).toLocaleString()}
-                            {"] "}
+                            {"]"}
                           </>
                         ) : (
                           <></>

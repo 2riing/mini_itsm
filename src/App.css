@@ -27,9 +27,9 @@
 }
 
 :root {
-  --button-color: #ffffff;
-  --button-bg-color: #0d6efd;
-  --button-hover-bg-color: #025ce2;
+  --button-color: #fff;
+  --button-bg-color: #5845ea;
+  --button-hover-bg-color: #7a6ce7;
 }
 
 button {
