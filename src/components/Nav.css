@@ -9,7 +9,7 @@
   align-items: center;
   padding: 10px;
   padding-right: 100px;
-  background-color: transparent;
+  background-color: #fff;
 }
 .nav-links {
   display: flex;
@@ -21,6 +21,7 @@
 .nav_item {
   text-decoration: none;
   color: #333;
+  font-weight: 600;
 }
 .burger-menu {
   display: none;

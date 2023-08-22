@@ -45,13 +45,13 @@ function BoardView() {
     <section className="notice">
       <div id="board-list">
         <div className="board-container">
-          <div className="board-create">
-            <Link className="nav_item" to="/new" state={{ cate: "create" }}>
-              <button>글쓰기</button>
-            </Link>
-          </div>
           <div id="board-table">
             <div className="board-header">자주 묻는 질문</div>
+            <div className="board-create">
+              <Link className="nav_item" to="/new" state={{ cate: "create" }}>
+                <button>글쓰기</button>
+              </Link>
+            </div>
             {articles ? (
               <>
                 {articles.map((article) => (

@@ -6,7 +6,7 @@ function SearchBar() {
     <div>
       <div id="search-container">
         <div>
-          <img className="logo" src="logo.png" />
+          <img className="logo" src="so.png" />
           <div className="bar">
             <input className="searchbar" type="text" title="Search" />
             <a href="#">

@@ -15,7 +15,11 @@ function Nav() {
     <div className="navbar">
       <div className="none">
         <Link to="/" className="nav_item">
-          <img className="nav-logo" src="./logo.png" />
+          <img
+            className="nav-logo"
+            src="./so.png"
+            style={{ paddingTop: "10px" }}
+          />
         </Link>
       </div>
       <ul className="nav-links">
