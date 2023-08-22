@@ -56,7 +56,7 @@ section.notice {
 }
 
 #board-table .item .date {
-  color: #9d9ea2;
+  color: #5845ea;
   padding: 0 6px 0 0;
 }
 
@@ -69,6 +69,7 @@ section.notice {
   line-height: 24px;
   margin: 0 0 8px 0;
   color: #202124;
+  background-color: #fff;
 }
 
 #board-table .item :hover {
@@ -155,6 +156,7 @@ section.notice {
 }
 .board-container {
   width: 800px;
+  min-height: 800px;
   margin: 0 auto;
   text-align: left;
 }

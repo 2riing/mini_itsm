@@ -1,14 +1,15 @@
 import axios from "axios";
-// import { Cookies } from "react-cookie";
+import { Cookies } from "react-cookie";
 
-// const cookies = new Cookies();
+const cookies = new Cookies();
 const constantUrl = "board";
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_PUBLIC_API_KEY,
-  //   headers: {
-  //     Authorization: `Bearer ${cookies.get("accessToken")}`,
-  //   },
+  withCredentials: true,
+  headers: {
+    Authorization: `Bearer ${cookies.get("accessToken")}`,
+  },
 });
 
 // Article
@@ -85,7 +86,7 @@ export async function getCommentAPI(postId, cmtId) {
 
 export async function postCommentAPI(data) {
   try {
-    const req = {content : data.content}
+    const req = { content: data.content };
     const res = await api.post(`${constantUrl}/${data.postId}/cmt`, req);
     return res;
   } catch (err) {

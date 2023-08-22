@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import "./Login.css";
 import { loginAPI } from "../lib/api/login";
 
 function Login() {
+  const navigate = useNavigate();
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
 
@@ -21,7 +23,6 @@ function Login() {
     };
     loginAPI(loginData).then((res) => {
       // 로그인 토큰 저장
-      console.log("login res :", res);
     });
 
     navigate(`/`);

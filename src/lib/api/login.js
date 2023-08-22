@@ -13,14 +13,12 @@ const api = axios.create({
 
 // Login
 export async function loginAPI(data) {
-try {
-    console.log("login res", data);
+  try {
     const res = await api.post(`${constantUrl}`, data);
-    cookies.set(token, data);
+    cookies.set("accessToken", res.data);
     alert("로그인 되었습니다.");
     return res;
-} catch (err) {  
+  } catch (err) {
     return err;
+  }
 }
-}
-  
