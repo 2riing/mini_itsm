@@ -9,9 +9,15 @@ function Filter() {
   const [page, setPage] = useState("2");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(5);
+  // const numPages = Math.ceil(5/5)
+  // const [currPage, setCurrPage] = useState(page)
+  let firstNum = currentPage - (currentPage % 5) + 1
+  let lastNum = currentPage - (currentPage % 5) + 5
+
+  // filter 요청 보내기
   const getResults = () => {
     console.log(startDate, endDate);
     filterAPI(query, page, startDate, endDate).then((res) => {
@@ -20,6 +26,7 @@ function Filter() {
     });
   };
 
+  // 오늘 날짜 가져오기
   function getEndDate() {
     const now = new Date();
     const year = now.getFullYear();
@@ -28,6 +35,7 @@ function Filter() {
     return `${year}-${month}-${day}`;
   }
 
+  // 일주일 전 날짜 가져오기
   function getStartDate() {
     const now = new Date();
     const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -36,7 +44,8 @@ function Filter() {
     const day = String(sevenDaysAgo.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   }
-
+  
+  // 시작 날짜 변경 
   const handleStartDateChange = (date) => {
     const startDateObj = new Date(date);
     const endDateObj = new Date(endDate);
@@ -47,6 +56,7 @@ function Filter() {
     }
   };
 
+  // 끝나는 날짜 변경
   const handleEndDateChange = (date) => {
     const startDateObj = new Date(startDate);
     const endDateObj = new Date(date);
@@ -57,18 +67,21 @@ function Filter() {
     }
   };
 
+  // 페이지 변경
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
     }
   };
 
+  // 첫 로딩시 초기 날짜 설정
   useEffect(() => {
     setEndDate(getEndDate());
     setStartDate(getStartDate());
     console.log("초기 날짜 설정", endDate, startDate);
   }, []);
 
+  // 시작, 끝 날짜 바뀔 때마다 요청 보내기
   useEffect(() => {
     console.log("end바뀜", endDate);
     if (startDate && endDate) {
@@ -76,8 +89,9 @@ function Filter() {
     }
   }, [endDate, startDate]);
 
+  // 페이지 바뀔 때마다 요청 보내기
   useEffect(() => {
-    getResults(currentPage);
+    getResults();
   }, [currentPage]);
 
   return (
@@ -120,15 +134,47 @@ function Filter() {
                 <div>결과 값이 없습니다</div>
               )}
               <div className="pagination">
-                {Array.from({ length: totalPages }, (_, index) => (
-                  <span
-                    key={index}
-                    className={currentPage === index + 1 ? "active" : ""}
-                    onClick={() => handlePageChange(index + 1)}
-                  >
-                    {index + 1}
-                  </span>
-                ))}
+              <div className="btn-container">
+                <button 
+                    onClick={() => {setPage(page-1); setCurrentPage(page-2);}} 
+                    disabled={page===1}>
+                    &lt;
+                </button>
+                <button 
+                    onClick={() => setPage(firstNum)}
+                    aria-current={page === firstNum ? "page" : null}>
+                    {firstNum}
+                </button>
+                {Array(4).fill().map((_, i) =>{
+                    if(i <=2){
+                        return (
+                            <button
+                                border="true" 
+                                key={i+1} 
+                                onClick={() => {setPage(firstNum+1+i)}}
+                                aria-current={page === firstNum+1+i ? "page" : null}>
+                                {firstNum+1+i}
+                            </button>
+                        )
+                    }
+                    else if(i>=3){
+                        return (
+                            <button
+                                border="true" 
+                                key ={i+1}
+                                onClick={() => setPage(lastNum)}
+                                aria-current={page === lastNum ? "page" : null}>
+                                {lastNum}
+                            </button>
+                        )  
+                    }
+                })}
+                <button 
+                    onClick={() => {setPage(page+1); setCurrentPage(page);}} 
+                    disabled={page===numPages}>
+                    &gt;
+                </button>
+            </div>
               </div>
             </div>
           </div>
