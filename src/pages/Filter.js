@@ -5,16 +5,17 @@ import { filterAPI } from "../lib/api/filter.js";
 
 function Filter() {
   const [results, setResults] = useState([]);
-  const [query, setQuery] = useState("dd");
-  const [page, setPage] = useState("");
+  const [query, setQuery] = useState("");
+  const [page, setPage] = useState("2");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [selectedDate, setSelectedDate] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
   const getResults = () => {
     console.log(startDate, endDate);
     filterAPI(query, page, startDate, endDate).then((res) => {
-      setResults(res.data);
+      setResults(res.data.boardResponseDtos);
       console.log("results data :", res.data);
     });
   };
@@ -56,6 +57,12 @@ function Filter() {
     }
   };
 
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
   useEffect(() => {
     setEndDate(getEndDate());
     setStartDate(getStartDate());
@@ -68,6 +75,10 @@ function Filter() {
       getResults();
     }
   }, [endDate, startDate]);
+
+  useEffect(() => {
+    getResults(currentPage);
+  }, [currentPage]);
 
   return (
     <div>
@@ -100,19 +111,6 @@ function Filter() {
                       key={result.id}
                     >
                       <div className="item">
-                        <span className="date">
-                          {result.created_at ? (
-                            <>
-                              {"["}
-                              {convertTimestampToDateTime(
-                                result.created_at
-                              ).toLocaleString()}
-                              {"]"}
-                            </>
-                          ) : (
-                            <></>
-                          )}
-                        </span>
                         <span className="title">{result.title}</span>
                       </div>
                     </Link>
@@ -121,6 +119,17 @@ function Filter() {
               ) : (
                 <div>결과 값이 없습니다</div>
               )}
+              <div className="pagination">
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <span
+                    key={index}
+                    className={currentPage === index + 1 ? "active" : ""}
+                    onClick={() => handlePageChange(index + 1)}
+                  >
+                    {index + 1}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>

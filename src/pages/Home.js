@@ -7,9 +7,6 @@ function Home() {
     <div>
       <br />
       <SearchBar />
-      <br />
-      <br />
-      <CreateQ />
     </div>
   );
 }
