@@ -37,9 +37,9 @@ function BoardView() {
     return `${year}. ${month}. ${day}`;
   }
 
-  // useEffect(() => {
-  //   getArticles();
-  // }, []);
+  useEffect(() => {
+    getArticles();
+  }, []);
 
   return (
     <section className="notice">
