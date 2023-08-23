@@ -6,6 +6,7 @@ import {
   deleteArticleAPI,
   getCommentsAPI,
   postCommentAPI,
+  deleteCommentAPI,
 } from "../../lib/api/article";
 
 function BoardDetail() {
@@ -45,6 +46,19 @@ function BoardDetail() {
     }
   };
 
+  const deleteComment = () => {
+    const productId = params.id;
+    if (window.confirm("정말 삭제합니까?")) {
+      deleteCommentAPI(productId).then((res) => {
+        console.log("delete data", res);
+        navigate("/board");
+      });
+      alert("삭제되었습니다.");
+    } else {
+      alert("취소합니다.");
+    }
+  };
+
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
   };
@@ -57,7 +71,7 @@ function BoardDetail() {
 
     const commentData = {
       content: newComment,
-      postId: params.id, 
+      postId: params.id,
     };
 
     postCommentAPI(commentData)
@@ -76,14 +90,11 @@ function BoardDetail() {
     getComments();
   }, []);
 
-
   return (
     <div>
       <section className="notice">
         <div className="page-title">
-          <div className="container">
-            <h3>Sample Data</h3>
-          </div>
+          <div className="container">{/* <h3>Sample Data</h3> */}</div>
         </div>
         <div id="board-list">
           <div className="container">
@@ -97,6 +108,8 @@ function BoardDetail() {
               </Link>
               <button onClick={deleteArticle}>글삭제</button>
             </div>
+
+            {/* 글 */}
             <table className="board-table">
               <thead>
                 <tr>
@@ -111,19 +124,23 @@ function BoardDetail() {
                 </tr>
               </tbody>
             </table>
+
+            {/* 댓글 */}
             <div className="comment-section">
               {comments?.map((comment, index) => (
                 <div key={index} className="comment">
-                  <div>                  
+                  <div>
                     <div className="user-name">작성자 : {comment.user_id}</div>
                     <div className="content">{comment.content}</div>
                   </div>
-                  <div><button>x</button></div>
-
-                
+                  <div>
+                    <button onClick={deleteComment}>x</button>
+                  </div>
                 </div>
               ))}
             </div>
+
+            {/* 댓글 생성 */}
             <div className="comment-create">
               <div className="user-name">UserName</div>
               <textarea

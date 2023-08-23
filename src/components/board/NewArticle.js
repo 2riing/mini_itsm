@@ -9,7 +9,6 @@ function NewArticle() {
 
   return (
     <div>
-      <h1>{title}</h1>
       <br />
       <br />
       <CreateQ cate="create" />

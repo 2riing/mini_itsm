@@ -70,12 +70,7 @@ function CreateQ(props) {
   return (
     <div className="create-q-container">
       <div className="create-q-content">
-        <div className="create-btn-con">
-          <label>
-            <input type="checkbox" />
-            Template
-          </label>
-        </div>
+        <div className="create-btn-con"></div>
         <div className="create-form">
           <div>
             <input
