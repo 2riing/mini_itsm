@@ -7,13 +7,14 @@ import { filterAPI } from "../lib/api/filter.js";
 function SearchBar() {
   const [results, setResults] = useState([]);
   const [query, setQuery] = useState("");
-  const [page, setPage] = useState("1");
+  const [page, setPage] = useState(1);
   const [startDate, setStartDate] = useState("0001-01-01");
   const [endDate, setEndDate] = useState("9999-12-31");
 
   const getResults = () => {
     console.log(startDate, endDate);
-    filterAPI(query, page, startDate, endDate).then((res) => {
+    filterAPI(query, page, startDate, endDate)
+    .then((res) => {
       setResults(res.data.boardResponseDtos);
       console.log("results data :", res.data);
     });
