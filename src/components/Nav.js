@@ -1,15 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Nav.css";
 import { Link } from "react-router-dom";
-import Home from "../pages/Home.js";
+import { Cookies } from "react-cookie";
 
 function Nav() {
-  // const burgerMenu = document.querySelector(".burger-menu");
-  // const navLinks = document.querySelector(".nav-links");
+  const [isLogin, setIsLogin] = useState(false);
+  const [loginLable, setLoginLable] = useState("login");
 
-  // burgerMenu.addEventListener("click", () => {
-  //   navLinks.classList.toggle("active");
-  // });
+  const cookies = new Cookies();
+
+  // 쿠키 삭제
+  const logout = () => {
+    cookies.remove('accessToken', {path : '/'})
+    setIsLogin(false);
+    alert("로그아웃 되었습니다")
+  }
+
+  useEffect(() => {
+    if (cookies.get("accessToken")) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+    
+  }, [])
+
+  useEffect(() => {
+    if(isLogin) setLoginLable("Logout");
+    else setLoginLable("Login");
+  }, [isLogin])
 
   return (
     <div className="navbar">
@@ -33,18 +52,20 @@ function Nav() {
             Board
           </Link>
         </li>
-        {/* <li>
-          <Link to="/etc" className="nav_item">
-            ETC
-          </Link>
-        </li> */}
         <li>
+          {isLogin?   
+          <Link 
+            to="/" 
+            className="nav_item"
+            onClick={logout}
+          >
+            Logout
+          </Link> :        
           <Link to="/login" className="nav_item">
             Login
-          </Link>
+          </Link>}
         </li>
       </ul>
-      {/* <div class="burger-menu">&#9776;</div> */}
     </div>
   );
 }

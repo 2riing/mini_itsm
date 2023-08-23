@@ -4,27 +4,32 @@ import "../components/board/BoardView.css";
 import { filterAPI } from "../lib/api/filter.js";
 
 function Filter() {
+  const [data, setData] = useState({});
   const [results, setResults] = useState([]);
   const [query, setQuery] = useState("");
-  const [page, setPage] = useState("2");
+  const [page, setPage] = useState(1);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(5);
-  // const numPages = Math.ceil(5/5)
+  const [numPages, setnumPages] = useState(0);
   // const [currPage, setCurrPage] = useState(page)
   let firstNum = currentPage - (currentPage % 5) + 1
   let lastNum = currentPage - (currentPage % 5) + 5
 
   // filter 요청 보내기
   const getResults = () => {
-    console.log(startDate, endDate);
     filterAPI(query, page, startDate, endDate).then((res) => {
-      setResults(res.data.boardResponseDtos);
+      saveData(res.data);
       console.log("results data :", res.data);
     });
   };
+
+  const saveData = (data) => {
+    setResults(data.boardResponseDtos);
+    setTotalPages(data.total);
+  } 
 
   // 오늘 날짜 가져오기
   function getEndDate() {
@@ -67,23 +72,14 @@ function Filter() {
     }
   };
 
-  // 페이지 변경
-  const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= totalPages) {
-      setCurrentPage(newPage);
-    }
-  };
-
   // 첫 로딩시 초기 날짜 설정
   useEffect(() => {
     setEndDate(getEndDate());
     setStartDate(getStartDate());
-    console.log("초기 날짜 설정", endDate, startDate);
   }, []);
 
   // 시작, 끝 날짜 바뀔 때마다 요청 보내기
   useEffect(() => {
-    console.log("end바뀜", endDate);
     if (startDate && endDate) {
       getResults();
     }
@@ -92,7 +88,10 @@ function Filter() {
   // 페이지 바뀔 때마다 요청 보내기
   useEffect(() => {
     getResults();
-  }, [currentPage]);
+  }, [page]);
+
+  useEffect(() => {console.log('page',page)}, [page])
+  useEffect(() => {console.log('current', currentPage)}, [currentPage])
 
   return (
     <div>
@@ -101,9 +100,11 @@ function Filter() {
           <div className="board-container">
             <div id="board-table">
               <div className="board-header">날짜 필터 결과</div>
+
+              {/* 날짜선택 */}
               <div
                 className="date-picker"
-                style={{ display: "flex", justifyContent: "center" }}
+                style={{ display: "flex", justifyContent: "center", marginBottom: "10px" }}
               >
                 <input
                   type="date"
@@ -116,13 +117,15 @@ function Filter() {
                   onChange={(e) => handleEndDateChange(e.target.value)}
                 />
               </div>
+
+              {/* 결과 값 */}
               {results ? (
                 <>
                   {results.map((result) => (
                     <Link
                       className="link-styled"
                       to={`/board/${result.id}`}
-                      key={result.id}
+                      key={result.updated_at.seconds}
                     >
                       <div className="item">
                         <span className="title">{result.title}</span>
@@ -133,48 +136,40 @@ function Filter() {
               ) : (
                 <div>결과 값이 없습니다</div>
               )}
+
+              {/* 페이징 */}
               <div className="pagination">
-              <div className="btn-container">
-                <button 
-                    onClick={() => {setPage(page-1); setCurrentPage(page-2);}} 
-                    disabled={page===1}>
-                    &lt;
-                </button>
-                <button 
-                    onClick={() => setPage(firstNum)}
-                    aria-current={page === firstNum ? "page" : null}>
-                    {firstNum}
-                </button>
-                {Array(4).fill().map((_, i) =>{
-                    if(i <=2){
+                <div className="btn-container">
+                  <button 
+                      onClick={() => {
+                        setPage(page-1); 
+                        setCurrentPage(page-2);}} 
+                        disabled={page===1}>
+                      &lt;
+                  </button>
+
+                  {/* 페이지 버튼 */}
+                  {Array(5).fill().map((_, i) =>{
                         return (
-                            <button
-                                border="true" 
-                                key={i+1} 
-                                onClick={() => {setPage(firstNum+1+i)}}
-                                aria-current={page === firstNum+1+i ? "page" : null}>
-                                {firstNum+1+i}
-                            </button>
+                          <button
+                            border="true" 
+                            key={i+1} 
+                            onClick={() => {setPage(i+1)}}
+                            aria-current={page === 1+i ? "page" : null}
+                            disabled={i>=totalPages}
+                            >
+                            {i+1}
+                          </button>
                         )
-                    }
-                    else if(i>=3){
-                        return (
-                            <button
-                                border="true" 
-                                key ={i+1}
-                                onClick={() => setPage(lastNum)}
-                                aria-current={page === lastNum ? "page" : null}>
-                                {lastNum}
-                            </button>
-                        )  
-                    }
-                })}
-                <button 
-                    onClick={() => {setPage(page+1); setCurrentPage(page);}} 
-                    disabled={page===numPages}>
-                    &gt;
-                </button>
-            </div>
+                  })}
+                  <button 
+                      onClick={() => {setPage(page+1); setCurrentPage(page);}} 
+                      disabled={
+                        page===numPages
+                        }>
+                      &gt;
+                  </button>
+                </div>
               </div>
             </div>
           </div>
