@@ -21,8 +21,9 @@
 }
 .bar {
   margin: 0 auto;
-  width: 575px;
+  width: 600px;
   border-radius: 30px;
+  background-color: #fff;
   border: 1px solid #dcdcdc;
 }
 .bar:hover {

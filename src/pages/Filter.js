@@ -4,32 +4,22 @@ import "../components/board/BoardView.css";
 import { filterAPI } from "../lib/api/filter.js";
 
 function Filter() {
-  const [data, setData] = useState({});
   const [results, setResults] = useState([]);
   const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
+  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(5);
-  const [numPages, setnumPages] = useState(0);
-  // const [currPage, setCurrPage] = useState(page)
-  let firstNum = currentPage - (currentPage % 5) + 1
-  let lastNum = currentPage - (currentPage % 5) + 5
 
   // filter 요청 보내기
   const getResults = () => {
     filterAPI(query, page, startDate, endDate).then((res) => {
-      saveData(res.data);
-      console.log("results data :", res.data);
+      setResults(res.data.boardResponseDtos);
+      setTotalPages(res.data.total);
     });
   };
-
-  const saveData = (data) => {
-    setResults(data.boardResponseDtos);
-    setTotalPages(data.total);
-  } 
 
   // 오늘 날짜 가져오기
   function getEndDate() {
@@ -49,8 +39,8 @@ function Filter() {
     const day = String(sevenDaysAgo.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   }
-  
-  // 시작 날짜 변경 
+
+  // 시작 날짜 변경
   const handleStartDateChange = (date) => {
     const startDateObj = new Date(date);
     const endDateObj = new Date(endDate);
@@ -67,6 +57,7 @@ function Filter() {
     const endDateObj = new Date(date);
     if (startDateObj > endDateObj) {
       alert("끝나는 날짜가 시작하는 날짜보다 빠릅니다");
+      setEndDate(endDate);
     } else {
       setEndDate(date);
     }
@@ -90,9 +81,6 @@ function Filter() {
     getResults();
   }, [page]);
 
-  useEffect(() => {console.log('page',page)}, [page])
-  useEffect(() => {console.log('current', currentPage)}, [currentPage])
-
   return (
     <div>
       <section className="notice">
@@ -104,7 +92,11 @@ function Filter() {
               {/* 날짜선택 */}
               <div
                 className="date-picker"
-                style={{ display: "flex", justifyContent: "center", marginBottom: "10px" }}
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: "10px",
+                }}
               >
                 <input
                   type="date"
@@ -140,34 +132,42 @@ function Filter() {
               {/* 페이징 */}
               <div className="pagination">
                 <div className="btn-container">
-                  <button 
-                      onClick={() => {
-                        setPage(page-1); 
-                        setCurrentPage(page-2);}} 
-                        disabled={page===1}>
-                      &lt;
+                  <button
+                    onClick={() => {
+                      setPage(page - 1);
+                      setCurrentPage(page - 2);
+                    }}
+                    disabled={page === 1}
+                  >
+                    &lt;
                   </button>
 
                   {/* 페이지 버튼 */}
-                  {Array(5).fill().map((_, i) =>{
-                        return (
-                          <button
-                            border="true" 
-                            key={i+1} 
-                            onClick={() => {setPage(i+1)}}
-                            aria-current={page === 1+i ? "page" : null}
-                            disabled={i>=totalPages}
-                            >
-                            {i+1}
-                          </button>
-                        )
-                  })}
-                  <button 
-                      onClick={() => {setPage(page+1); setCurrentPage(page);}} 
-                      disabled={
-                        page===numPages
-                        }>
-                      &gt;
+                  {Array(5)
+                    .fill()
+                    .map((_, i) => {
+                      return (
+                        <button
+                          border="true"
+                          key={i + 1}
+                          onClick={() => {
+                            setPage(i + 1);
+                          }}
+                          aria-current={page === 1 + i ? "page" : null}
+                          disabled={i >= totalPages}
+                        >
+                          {i + 1}
+                        </button>
+                      );
+                    })}
+                  <button
+                    onClick={() => {
+                      setPage(page + 1);
+                      setCurrentPage(page);
+                    }}
+                    disabled={page === totalPages}
+                  >
+                    &gt;
                   </button>
                 </div>
               </div>
