@@ -91,7 +91,7 @@ function BoardDetail() {
   }, []);
 
   return (
-    <div>
+    <div className="detail-container">
       <section className="notice">
         <div className="page-title">
           <div className="container">{/* <h3>Sample Data</h3> */}</div>
@@ -129,7 +129,7 @@ function BoardDetail() {
             <div className="comment-section">
               {comments?.map((comment, index) => (
                 <div key={index} className="comment">
-                  <div>
+                  <div className="comment-main">
                     <div className="user-name">작성자 : {comment.user_id}</div>
                     <div className="content">{comment.content}</div>
                   </div>
